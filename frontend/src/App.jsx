@@ -12,11 +12,9 @@ function App() {
   useEffect(() => {
     // Initialize peer when component mounts
     const peer = new Peer({
-      host: window.location.hostname, // Uses ngrok domain (e.g., "a842-2409...ngrok-free.app")
-      port: window.location.port || (window.location.protocol === "https:" ? 443 : 80),
-      path: "/myapp",
-      secure: true, // Force HTTPS (ngrok uses HTTPS)
-      debug: 3, // Verbose logging for debugging
+      host: 'localhost',
+      port: 9000,
+      path: '/myapp'
     });
 
     peer.on('open', (id) => {

@@ -1,35 +1,26 @@
-const express = require("express");
-const { ExpressPeerServer } = require("peer");
-const cors = require("cors");
-const path = require("path");
+// server.js
+const express = require('express');
+const { PeerServer } = require('peer');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
-// Enable CORS for all routes
-app.use(cors());
+// Enable CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', '*');
+  next();
+});
 
-// Serve static files
-app.use(express.static(path.join(__dirname, "dist")));
+// Create PeerJS server
+const peerServer = PeerServer({
+  port: 9000,
+  path: '/myapp'
+});
 
-// Start Express server
-const server = app.listen(port, "0.0.0.0", () => {
+// Serve static files from React app
+app.use(express.static('client/build'));
+
+app.listen(port, () => {
   console.log(`Server running on port ${port}`);
-});
-
-// Configure PeerServer with CORS
-const peerServer = ExpressPeerServer(server, {
-  path: "/myapp",
-  allow_discovery: true,
-  corsOptions: {
-    origin: "*",
-  },
-});
-
-// Attach PeerServer to Express
-app.use("/myapp", peerServer);
-
-// SPA fallback
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
