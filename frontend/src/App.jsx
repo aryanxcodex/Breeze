@@ -19,7 +19,7 @@ function App() {
     const peer = new Peer({
       host: "breeze-vmps.onrender.com",
       secure: true,
-      port: 3000,
+      port: 443,
       path: "/peerjs",
     });
 
