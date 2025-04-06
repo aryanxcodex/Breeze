@@ -11,15 +11,15 @@ function App() {
   const receivedChunks = useRef([]);
   const receivedFileMeta = useRef({});
 
-  const peerHost = window.__CONFIG__?.HOST || "localhost";
-  const peerPort = window.__CONFIG__?.PORT || 3000;
-  const isSecure = window.__CONFIG__?.SECURE || false;
+  // const peerHost = window.__CONFIG__?.HOST || "localhost";
+  // const peerPort = window.__CONFIG__?.PORT || 3000;
+  // const isSecure = window.__CONFIG__?.SECURE || false;
 
   useEffect(() => {
     const peer = new Peer({
-      host: import.meta.env.VITE_HOST,
-      secure: import.meta.env.VITE_SECURE,
-      port: import.meta.env.VITE_PORT,
+      host: "breeze-vmps.onrender.com",
+      secure: true,
+      port: 3000,
       path: "/peerjs",
     });
 
