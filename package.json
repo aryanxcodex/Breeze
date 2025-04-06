@@ -1,0 +1,12 @@
+{
+  "name": "p2p-file-transfer",
+  "version": "1.0.0",
+  "scripts": {
+    "install": "npm install --prefix frontend && npm install --prefix server",
+    "build": "npm run build --prefix frontend && rm -rf server/dist && cp -r frontend/dist server/dist",
+    "start": "node server/server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
