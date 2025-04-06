@@ -17,9 +17,9 @@ function App() {
 
   useEffect(() => {
     const peer = new Peer({
-      host: peerHost,
-      secure: isSecure,
-      port: peerPort,
+      host: import.meta.env.VITE_HOST,
+      secure: import.meta.env.VITE_SECURE,
+      port: import.meta.env.VITE_PORT,
       path: "/peerjs",
     });
 
