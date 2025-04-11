@@ -38,6 +38,15 @@ function App() {
       conn.on("open", () => {
         setConnectionStatus("Connected to peer");
 
+        const pc = conn._peerConnection || conn.peerConnection || conn._pc;
+        if (pc) {
+          pc.onicecandidate = (e) => {
+            if (e.candidate) {
+              console.log("Incoming ICE Candidate:", e.candidate.candidate);
+            }
+          };
+        }
+
         conn.on("data", (data) => {
           handleReceivedData(data);
         });
@@ -100,6 +109,15 @@ function App() {
     setConnectionStatus("Connecting...");
 
     conn.on("open", () => {
+      const pc = conn._peerConnection || conn.peerConnection || conn._pc;
+      if (pc) {
+        pc.onicecandidate = (e) => {
+          if (e.candidate) {
+            console.log("Outgoing ICE Candidate:", e.candidate.candidate);
+          }
+        };
+      }
+
       setConnectionStatus("Sending file...");
 
       const chunkSize = 1024 * 512; // 512KB
